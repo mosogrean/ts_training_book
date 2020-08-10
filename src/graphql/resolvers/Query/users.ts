@@ -1,5 +1,6 @@
 import { User } from '../../../models/User';
 import UserModel from 'src/models/User';
+import { transformUser } from './merge';
 
 export const userResolver = async (
   _parent: any,
@@ -10,14 +11,16 @@ export const userResolver = async (
   if (user == null) {
     throw new Error('user not found');
   }
-  return user;
+  return transformUser(user);
 }
 
 export const usersResolver = async (
   _parent: any,
   _args: any,
   req: any,
-): Promise<User[]> => {
+): Promise<Promise<User>[]> => {
   const users: User[] = await UserModel.find();
-  return users;
+  return users.map((user: User): Promise<User> => {
+    return transformUser(user);
+  })
 }
