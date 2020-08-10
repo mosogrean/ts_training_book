@@ -8,7 +8,7 @@ export interface User {
   created_at: Date;
   updated_at: Date;
 
-  _doc?: User;
+  _doc?: User | undefined;
 }
 
 export const UserCollection = 'users';

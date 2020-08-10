@@ -9,6 +9,8 @@ export interface Book {
   status: string;
   created_at: Date;
   updated_at: Date;
+
+  _doc?: Book | undefined;
 }
 
 export type BookType = Book & Document;
