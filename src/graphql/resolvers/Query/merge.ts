@@ -11,6 +11,7 @@ const user = async (
     const user: any = await UserModel.findById(userId);
     return {
       ...user._doc,
+      books: books(user.books),
     }
   } catch (e) {
     throw e;
@@ -47,25 +48,14 @@ const books = async (
 
 export const transformUser = async (user: any): Promise<User> => {
   return {
-    ...user._doc
-    // _id: user._id,
-    // name: user.name,
-    // email: user.email,
-    // role: user.role,
-    // created_at: user.created_at,
-    // updated_at: user.updated_at
+    ...user._doc,
+    books: books(user.books)
   }
 }
 
 export const transformBook = async (book: any): Promise<Book> => {
   return {
     ...book._doc,
-    // _id: book._id,
-    // title: book.title,
     author: user(book.author),
-    // type: book.type,
-    // status: book.status,
-    // created_at: book.created_at,
-    // updated_at: book.updated_at,
   }
 }

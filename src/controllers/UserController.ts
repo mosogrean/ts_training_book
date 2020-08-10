@@ -31,6 +31,7 @@ export class UserController {
       name,
       email,
       role,
+      books: [],
       created_at: new Date(),
       updated_at: new Date(),
     };

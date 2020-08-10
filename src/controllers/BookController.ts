@@ -41,9 +41,14 @@ export class BookController {
       const user = await UserModel.findById(book.author);
       if (user != null) {
         book.author = user;
+        const bookStored = await BookModel.create(book)
+        user.books = [...user.books, bookStored];
+        await user.save();
+
+        res.status(OK).json(bookStored);
+      } else {
+        res.status(NOT_FOUND).json({message: 'user not found'});
       }
-      const bookStored = await BookModel.create(book)
-      res.status(OK).json(bookStored);
     } catch (e) {
       logger.error(JSON.stringify(e));
       res.status(BAD_REQUEST).json(e);
