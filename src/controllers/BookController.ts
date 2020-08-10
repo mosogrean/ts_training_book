@@ -76,7 +76,7 @@ export class BookController {
     try {
       const book: BookType | null = await BookModel.findById(book_id);
       if (book != null) {
-        book.remove();
+        await book.remove();
         res.status(NO_CONTENT).json();
       }
       res.status(NOT_FOUND).json({message: 'book not found'});

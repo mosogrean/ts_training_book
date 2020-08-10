@@ -17,7 +17,7 @@ export const BookCollection = 'books';
 
 export const BookSchema = new Schema<Book>({
   title: { type: String, unique: true, required: true },
-  author: { type: Schema.Types.ObjectId, ref: UserCollection ,required: true },
+  author: { type: Schema.Types.ObjectId, ref: UserCollection, required: true },
   type: { type: String, required: true },
   status: { type: String, enum: ['avaliable', 'burrow'], default: 'avaliable', required: true },
   created_at: { type: Date, required: true },

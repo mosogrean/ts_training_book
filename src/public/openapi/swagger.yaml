@@ -1,0 +1,99 @@
+swagger: '2.0'
+info:
+  description: |
+    Training OPENAPI
+  version: 1.0.0
+  title: Training OPENAPI
+tags:
+- name: Users
+  description: User using api
+- name: Books
+  description: Book using api
+- name: Burrows
+  description: Burrow using api
+# during dev, should point to your local machine
+host: "localhost:3000"
+# basePath prefixes all resource paths
+basePath: /api/
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+  - application/xml
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+
+paths:
+  /users/all:
+    get:
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+
+  /users/store:
+    post:
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/parameters/UserInfo'
+      responses:
+        "200":
+          description: Success
+
+  /users/{userId}/update:
+    put:
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/parameters/UserInfo'
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: mossss
+              email:
+                type: string
+                example: mos@mos.com
+              role: 
+                type: number
+                example: 10
+        
+
+parameters:
+  UserInfo:
+    name: user info
+    in: body
+    description: email
+    required: true
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+          example: mossss
+        email:
+          type: string
+          example: mos@mos.com
+        role: 
+          type: number
+          example: 10
+        

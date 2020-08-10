@@ -47,9 +47,9 @@ export class BurrowController {
     logger.debug(JSON.stringify(books));
     try {
       const fetchBooks: BookType[] = await BookModel.find({ _id: { $in: burrow.books }});
-      await fetchBooks.map(async (book: BookType) => {
+      fetchBooks.map(async (book: BookType) => {
         if (book.status !== 'avaliable') {
-          res.status(BAD_REQUEST).json({message: `book id ${book._id} is not avaliable`});
+          res.status(BAD_REQUEST).json({ message: `book id ${book._id} is not avaliable` });
         }
         book.status = 'burrow';
         await book.save();
@@ -72,7 +72,7 @@ export class BurrowController {
     try {
       const burrow: BurrowType | null = await BurrowModel.findById(burrow_id);
       const books = burrow?.books;
-      await books?.map(async (book) => {
+      books?.map(async (book) => {
         const fetchBook: BookType | null = await BookModel.findById(book);
         if (fetchBook != null) {
           fetchBook.status = 'avaliable';
