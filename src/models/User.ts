@@ -7,6 +7,8 @@ export interface User {
   role: number;
   created_at: Date;
   updated_at: Date;
+
+  _doc?: User;
 }
 
 export const UserCollection = 'users';

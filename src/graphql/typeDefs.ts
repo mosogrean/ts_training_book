@@ -10,8 +10,21 @@ const typeDefs = gql`
     updated_at: String!
   }
 
+  type Book {
+    _id: ID!
+    title: String!
+    author: User!
+    type: String!
+    status: String!
+    created_at: String!
+    updated_at: String!
+  }
+
   type Query {
+    user(user_id: String!): User!
     users: [User!]!
+
+    books: [Book!]!
   }
 `
 export default typeDefs;

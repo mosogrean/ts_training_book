@@ -1,22 +1,23 @@
 import { User } from '../../../models/User';
+import UserModel from 'src/models/User';
 
+export const userResolver = async (
+  _parent: any,
+  { user_id }: { user_id: string },
+  req: any,
+): Promise<User> => {
+  const user: User | null = await UserModel.findById(user_id);
+  if (user == null) {
+    throw new Error('user not found');
+  }
+  return user;
+}
 
 export const usersResolver = async (
   _parent: any,
   _args: any,
   req: any,
 ): Promise<User[]> => {
-  return [{
-    name: 'mos',
-    email: 'mos@mos.com',
-    role: 1,
-    created_at: new Date(),
-    updated_at: new Date(),
-  }, {
-    name: 'mos2',
-    email: 'mos@mos.com',
-    role: 2,
-    created_at: new Date(),
-    updated_at: new Date(),
-  }]
+  const users: User[] = await UserModel.find();
+  return users;
 }
